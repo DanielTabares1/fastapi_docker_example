@@ -25,6 +25,23 @@ async def create_user(
 async def get_users(db: _orm.Session = _fastapi.Depends(_services.get_db)):
     return await _services.get_users(db)
 
-@app.get("/api/users/{user_id}", response_model=_schemas.User)
-async def get_user(user_id: int, db = _fastapi.Depends(_services.get_db)):
-    return await _services.get_user(user_id, db)
+@app.get("/api/users/{user_id}/", response_model=_schemas.User)
+async def get_user(
+    user_id: int, 
+    db: _orm.Session = _fastapi.Depends(_services.get_db)
+):
+    user = await _services.get_user(user_id = user_id, db=db)
+    if user is None:
+        raise _fastapi.HTTPException(status_code=404, detail="User not found")
+    return user
+
+@app.delete("/api/users/{user_id}/")
+async def delete_user(
+    user_id: int, 
+    db: _orm.Session = _fastapi.Depends(_services.get_db)
+):
+    user = await _services.get_user(user_id=user_id, db=db)
+    if user is None:
+        raise _fastapi.HTTPException(status_code=404, detail="User not found")
+    await _services.delete_user(user, db=db)
+    return "Succesfully deleted user"

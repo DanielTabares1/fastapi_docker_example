@@ -29,6 +29,10 @@ async def get_users(db: "Session") -> list[_schemas.User]:
     users = db.query(_models.User).all()
     return list(map(_schemas.User.from_orm, users))
 
-async def get_user(user_id: int, db: "Session") -> _schemas.User:
+async def get_user(user_id: int, db: "Session"):
     user = db.query(_models.User).filter(_models.User.id == user_id).first()
-    return _schemas.User.from_orm(user)
+    return user
+
+async def delete_user(user: _models.User, db: "Session"):
+    db.delete(user)
+    db.commit()
