@@ -7,12 +7,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
-    depends_on:
-      - postgres
-
-postgres:
-  build: 
-    context: .
-    dockerfile: dockerfile-postgres
-  ports:
-    - "5432:5432"
+#    depends_on:
+#      - postgres
+#
+#  postgres:
+#    build: 
+#      context: .
+#      dockerfile: dockerfile-postgres
+#   ports:
+#      - "5432:5432"
