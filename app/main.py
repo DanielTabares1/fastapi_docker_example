@@ -24,3 +24,7 @@ async def create_user(
 @app.get("/api/users/", response_model=List[_schemas.User])
 async def get_users(db: _orm.Session = _fastapi.Depends(_services.get_db)):
     return await _services.get_users(db)
+
+@app.get("/api/users/{user_id}", response_model=_schemas.User)
+async def get_user(user_id: int, db = _fastapi.Depends(_services.get_db)):
+    return await _services.get_user(user_id, db)
