@@ -12,4 +12,4 @@ COPY ./app /code/app
 #RUN python3 -c 'import services; services._add_tables()'
 
 #WORKDIR /code
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
