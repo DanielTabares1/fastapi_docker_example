@@ -45,3 +45,14 @@ async def delete_user(
         raise _fastapi.HTTPException(status_code=404, detail="User not found")
     await _services.delete_user(user, db=db)
     return "Succesfully deleted user"
+
+@app.put("/api/users/{user_id}/", response_model=_schemas.User)
+async def update_user(
+    user_id: int, 
+    user_data: _schemas.CreateUser, 
+    db: _orm.Session = _fastapi.Depends(_services.get_db)
+):
+    user = await _services.get_user(user_id=user_id, db=db)
+    if user is None:
+        raise _fastapi.HTTPException(status_code=404, detail="User not found")
+    return await _services.update_user(user, user_data, db=db)

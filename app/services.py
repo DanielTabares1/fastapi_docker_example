@@ -36,3 +36,12 @@ async def get_user(user_id: int, db: "Session"):
 async def delete_user(user: _models.User, db: "Session"):
     db.delete(user)
     db.commit()
+
+async def update_user(user: _models.User, user_data: _schemas.CreateUser, db: "Session") -> _schemas.User:
+    user.name = user_data.name
+    user.email = user_data.email
+    user.image = user_data.image
+    user.role = user_data.role
+    db.commit()
+    db.refresh(user)
+    return _schemas.User.from_orm(user)
