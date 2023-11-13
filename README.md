@@ -1,7 +1,7 @@
 # fastapi_docker_example
 Se desarrollará una API en Python, con FastAPI y PostgreSQL con todo montado en docker bien bonito :3 
 
-### Para ejecutar el proyecto
+### Para ejecutar el proyecto (Esto no sirve de momento, toca crear la base de datos aparte y luego correr el proyecto localmente)
 Lo primero es buildear las imágenes de docker, simplemente necesita una terminal en la raíz del proyecto y ejecutar el siguiente comando.  
 ```
 docker-compose up -d
