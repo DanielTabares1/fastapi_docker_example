@@ -24,3 +24,7 @@ async def create_user(user: _schemas.CreateUser, db: "Session") -> _schemas.User
     db.commit()
     db.refresh(user)
     return _schemas.User.from_orm(user)
+
+async def get_users(db: "Session") -> list[_schemas.User]:
+    users = db.query(_models.User).all()
+    return list(map(_schemas.User.from_orm, users))
